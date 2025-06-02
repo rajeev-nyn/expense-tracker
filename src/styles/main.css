@@ -1,0 +1,362 @@
+:root {
+    --bg-primary: #000;
+    --bg-secondary: #111;
+    --text-primary: #fff;
+    --text-secondary: #888;
+    --accent: #0070f3;
+    --debit: #ff4757;
+    --credit: #2ed573;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --parasyte-blood: #ff4757;
+    --parasyte-green: #2ed573;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    margin: 0;
+    padding: 1rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    background: linear-gradient(45deg, #000, #111, #000);
+    background-size: 200% 200%;
+    animation: gradientBG 15s ease infinite;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.app-title {
+    text-align: center;
+    margin: 2rem 0;
+    background: linear-gradient(to right, var(--accent), #00a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.expense-form {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.amount-input,
+.desc-input {
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.amount-input:focus,
+.desc-input:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.toggle-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.toggle-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    backdrop-filter: blur(5px);
+}
+
+.toggle-btn.debit {
+    background: linear-gradient(135deg, var(--debit), #ff6b81);
+    color: white;
+}
+
+.toggle-btn.credit {
+    background: linear-gradient(135deg, var(--credit), #7bed9f);
+    color: white;
+}
+
+.toggle-btn.active {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), #00a8ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 112, 243, 0.3);
+}
+
+.monthly-total {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.total-item {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.total-item.debit {
+    color: var(--debit);
+}
+
+.total-item.credit {
+    color: var(--credit);
+}
+
+.expenses-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.expense-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease-out;
+    transition: all 0.3s ease;
+}
+
+.expense-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+}
+
+.expense-item.debit {
+    border-left: 4px solid var(--debit);
+}
+
+.expense-item.credit {
+    border-left: 4px solid var(--credit);
+}
+
+.expense-amount {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.expense-item.debit .expense-amount {
+    color: var(--debit);
+}
+
+.expense-item.credit .expense-amount {
+    color: var(--credit);
+}
+
+.expense-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.delete-transaction-btn {
+    background: rgba(255, 71, 87, 0.2);
+    color: var(--debit);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.expense-item:hover .delete-transaction-btn {
+    opacity: 1;
+}
+
+.delete-transaction-btn:hover {
+    background: rgba(255, 71, 87, 0.3);
+    transform: scale(1.1);
+}
+
+.expense-item.deleting {
+    animation: deleteAnimation 0.3s ease-out forwards;
+}
+
+@keyframes deleteAnimation {
+    to {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+}
+
+.expense-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-container {
+    margin: 0.75rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.toggle-text {
+    display: flex;
+    gap: 2rem;
+    font-weight: 500;
+}
+
+.debit-text, .credit-text {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.toggle-container.debit .debit-text,
+.toggle-container.credit .credit-text {
+    opacity: 1;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--parasyte-blood);
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background: var(--parasyte-green);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+.input-container {
+    margin-bottom: 1.5rem;
+}
+
+.smart-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.smart-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.1);
+}
+
+.hint-text {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-align: left;
+}
