@@ -1,4 +1,5 @@
 import { Expense } from '../types';
+import './ExpenseForm.css';
 
 export class ExpenseForm {
     private element: HTMLElement;
@@ -26,10 +27,8 @@ export class ExpenseForm {
         const form = document.createElement('form');
         
         const inputContainer = document.createElement('div');
-        inputContainer.className = 'input-container';
-
-        const mainInput = document.createElement('input');
-        mainInput.type = 'text';        mainInput.placeholder = 'Enter transaction (e.g., lunch 50)';
+        inputContainer.className = 'input-container';        const mainInput = document.createElement('input');
+        mainInput.type = 'text';        mainInput.placeholder = 'Enter transaction (e.g., lunch ₹50)';
         mainInput.className = 'smart-input';
         mainInput.required = true;
 
@@ -40,9 +39,7 @@ export class ExpenseForm {
         toggleSwitch.className = 'toggle-switch';
 
         const toggleLabel = document.createElement('label');
-        toggleLabel.className = 'switch';
-
-        const toggleInput = document.createElement('input');
+        toggleLabel.className = 'switch';        const toggleInput = document.createElement('input');
         toggleInput.type = 'checkbox';
         
         const slider = document.createElement('span');
@@ -52,10 +49,21 @@ export class ExpenseForm {
         toggleText.className = 'toggle-text';
         toggleText.innerHTML = '<span class="debit-text">Debit</span><span class="credit-text">Credit</span>';
 
+        // Set initial state
+        toggleContainer.className = 'toggle-container debit';
+        
         toggleInput.onchange = (e) => {
             const target = e.target as HTMLInputElement;
             this.type = target.checked ? 'credit' : 'debit';
             toggleContainer.className = 'toggle-container ' + this.type;
+            
+            // Update text visibility
+            const debitText = toggleText.querySelector('.debit-text') as HTMLElement;
+            const creditText = toggleText.querySelector('.credit-text') as HTMLElement;
+            if (debitText && creditText) {
+                debitText.style.opacity = this.type === 'debit' ? '1' : '0.5';
+                creditText.style.opacity = this.type === 'credit' ? '1' : '0.5';
+            }
         };
 
         const submitBtn = document.createElement('button');

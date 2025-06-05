@@ -3,19 +3,42 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* Anime-style background effects */
+#root::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, var(--accent-glow) 0%, transparent 20%),
+    radial-gradient(circle at 80% 80%, var(--accent-glow) 0%, transparent 20%);
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: -1;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+/* Glowing border animation */
+@keyframes borderGlow {
+  0%, 100% { border-color: var(--accent); }
+  50% { border-color: var(--accent-glow); }
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Neon text effect */
+@keyframes neonPulse {
+  0%, 100% { text-shadow: 0 0 10px var(--accent-glow); }
+  50% { text-shadow: 0 0 20px var(--accent-glow), 0 0 30px var(--accent-glow); }
 }
 
 @keyframes logo-spin {
